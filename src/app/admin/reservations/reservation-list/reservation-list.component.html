@@ -1,0 +1,86 @@
+<div class="container">
+  <h3 class="text-center">Reservation Table</h3><br/>
+  <div>
+    <div class="col-md-4">
+
+      <label>Reservation Date</label>
+      <input type="text" class="form-control" name="book_date"
+             [(ngModel)]="old_book_date" placeholder="Filter By Date" bsDatepicker>
+    </div>
+    <br/>
+    <br/>
+    <div class="col-md-12">
+      <button class="col-md-1 btn btn-primary m-1" (click)="serachByDate()">Search</button>
+      <button class="col-md-1 btn btn-primary m-1" (click)="listAll()">List All</button>
+      <button class="col-md-2 btn btn-success m-1" (click)="refresh()">Refresh Database</button>
+      <button class="col-md-4 btn btn-success m-1" (click)="showUnconfirmed()">Check UnConfirmed Reservation</button>
+      <button class="col-md-2 btn btn-primary m-1" (click)="onBulkDelete()">Bulk Delete</button>
+    </div>
+
+    <hr>
+    <table class="table table-sm table-hover">
+      <thead>
+      <tr>
+        <th>Select</th>
+        <th [class.active]="order === 'first_name'"
+            (click)="setOrder('first_name')"
+        >
+          Client Name <span [hidden]="reverse">▼</span>
+          <span [hidden]="!reverse">▲</span>
+        </th>
+
+        <th>Phone Number</th>
+
+        <th>Adult</th>
+        <th>Children</th>
+        <th [class.active]="order === 'book_date'"
+            (click)="setOrder('book_date')"
+        >
+          Date <span [hidden]="reverse">▼</span>
+          <span [hidden]="!reverse">▲</span>
+        </th>
+        <th>Session</th>
+
+        <th [class.active]="order === 'submitted_time'"
+            (click)="setOrder('submitted_time')"
+        >
+          Submitted Time <span [hidden]="reverse">▼</span>
+          <span [hidden]="!reverse">▲</span>
+        </th>
+        <th [class.active]="order === 'confirm_status'"
+            (click)="setOrder('confirm_status')"
+        >
+          Status <span [hidden]="reverse">▼</span>
+          <span [hidden]="!reverse">▲</span>
+        </th>
+        <th>Operation</th>
+      </tr>
+      </thead>
+      <ng-container *ngFor="let reservation of reservationList | filter: confirm_status2 | filter: new_book_date
+  | orderBy: order:reverse:'case-insensitive'
+  | paginate: { itemsPerPage: 10, currentPage: p }">
+        <tr>
+          <input type="checkbox" [(ngModel)]="reservation.deleteFlag">
+          <td (click)="onEdit(reservation)">{{reservation.first_name}}</td>
+          <td (click)="onEdit(reservation)">{{reservation.phone}}</td>
+          <td (click)="onEdit(reservation)">{{reservation.no_of_people}}</td>
+          <td (click)="onEdit(reservation)">{{reservation.no_of_children}}</td>
+          <td (click)="onEdit(reservation)">{{reservation.book_date | date: 'fullDate'}}</td>
+          <td (click)="onEdit(reservation)">{{reservation.session}}</td>
+          <td (click)="onEdit(reservation)">{{reservation.submitted_time | date:'long'}}</td>
+          <td (click)="onEdit(reservation)">{{reservation.confirm_status}}</td>
+          <td>
+            <a class="btn" (click)="onEdit(reservation)">
+              Edit
+            </a>
+            <a class="btn" (click)="onDelete(reservation.$key)">
+              Delete
+            </a>
+          </td>
+        </tr>
+      </ng-container>
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>
+

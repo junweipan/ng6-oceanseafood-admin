@@ -1,0 +1,35 @@
+<div class="wrapper">
+  <div class="container">
+    <h1 class="text-white">Welcome</h1>
+    <h2 class="text-white">China Bar Back-End Dashboard</h2>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+      <input type="text" class="form-control" name="user" #admin="ngModel"
+             [(ngModel)]="logname"
+             placeholder="Username">
+
+      <input type="password" class="form-control" name="password" #password="ngModel"
+             [(ngModel)]="logpsw"
+             placeholder="Password">
+
+      <button id="login-button" type="submit" class="btn m-1"> <i class="fa fa-sign-in"></i>
+        Login</button>
+      <button id="reset-button" type="button" class="btn m-1" (click)="resetForm(loginForm)"> <i class="fa fa-refresh"></i>
+        Reset</button>
+
+    </form>
+  </div>
+
+  <ul class="bg-bubbles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</div>
+
