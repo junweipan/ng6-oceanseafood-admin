@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService} from '../shared/auth.service';
 import { Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin',
@@ -15,9 +16,14 @@ export class AdminComponent implements OnInit {
     }
   ];
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private tostr: ToastrService) { }
 
   ngOnInit() {
+    this.tostr.info('Please be patient',
+      'Data loading...', {
+      timeOut: 3000
+    });
   }
   onSave(tag: string) {
     console.log('TO do');
